@@ -107,7 +107,7 @@ class MicrophoneStream(object):
             yield b"".join(data)
 
 def get_token(apiKey, apiSecret, userId):
-    API_ENDPOINT = "http://164.52.204.34:3002/cb/v1/auth/create_access_token"
+    API_ENDPOINT =  "https://api.marsview.ai/cb/v1/auth/create_access_token"
     payload = {
             "apiKey": apiKey,
             "apiSecret": apiSecret,
@@ -123,8 +123,7 @@ def initiate_transaction(token):
     # importing the requests library
     
     # defining the api-endpoint 
-    API_ENDPOINT = "http://streams.marsview.ai/rb/v1/streams/setup_realtime_stream"
-    # API_ENDPOINT = "http://127.0.0.1:3030/rb/v1/streams/setup_realtime_stream"
+    API_ENDPOINT = "https://streams.marsview.ai/rb/v1/streams/setup_realtime_stream"
 
     
 
@@ -138,9 +137,7 @@ def initiate_transaction(token):
     channelId = pastebin_url['channels'][0]['channelId']
 
 
-    # sio.connect('http://127.0.0.1:3030', auth={'txnId': txnId, 'channelId': channelId, 'token':token})
     sio.connect('https://streams.marsview.ai/', auth={'txnId': txnId, 'channelId': channelId, 'token':token})
-    # sio.connect('http://localhost:3030', auth={'txnId': txnId, 'channelId': channelId, 'token':token})
     sio.emit('startStream', '')
 def send_binary_data():
     
