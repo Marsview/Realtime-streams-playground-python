@@ -2,7 +2,6 @@
 Marsview Realtime Speech Analytics API
 Client end code for Marsview Speech Analytics APIs
 
-<<<<<<< HEAD
 ## Step 1:
 Installing the dependencies for the python application
   ```
