@@ -5,8 +5,8 @@ Client end code for Marsview Speech Analytics APIs
 ## Step 1:
 Installing the dependencies for the python application
   ```
-  $ pip install pyaudio
-  $ pip install socketio
+  $ pip install pyaudio=
+  $ pip install "python-socketio[client]"=5.3.0
   ```
 
 ## Step 2:
