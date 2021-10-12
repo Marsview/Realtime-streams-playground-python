@@ -1,12 +1,13 @@
 # Realtime-streams-playground-python
 Marsview Realtime Speech Analytics API
 Client end code for Marsview Speech Analytics APIs
+
 ⚠️ Audio should be of format LINEAR16 at 16000hz for best performance
 
 ## Step 1:
 Installing the dependencies for the python application
   ```
-  $ pip install pyaudio
+  $ pip install pyaudio==0.2.11
   $ pip install "python-socketio[client]"=5.3.0
   ```
 
