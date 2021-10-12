@@ -25,7 +25,8 @@ It will take some time to authenticate the user, generate Transaction and initia
 Token is valid
 * recording
 ```
-
+Shown below is the output from the python script
+![Output](https://user-images.githubusercontent.com/89631839/136901223-9e2dc5ec-072d-4401-b82f-a3b13455e86b.jpeg)
 
 ## Handling response:
 
