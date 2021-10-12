@@ -156,8 +156,8 @@ def send_binary_data():
         
 
 if __name__ == '__main__':
-    api_secret = 'ZBR24Z4-BZ345EF-GGH3HH3-HDQR4G7'
-    api_key = 'faf0227c-5fc6-42b9-8422-38c48b6f8240'
-    user_id = 'venkatesh.prasad@marsview.ai'
+    api_secret = '<API_SECRET>'
+    api_key = '<API_KEY>'
+    user_id = '<USER_ID>'
     token = get_token(api_key, api_secret, user_id)
     initiate_transaction(token)
