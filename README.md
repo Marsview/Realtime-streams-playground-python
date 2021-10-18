@@ -18,7 +18,7 @@ Update these values in py-client.py
 
 ## Step 3:
 Paste the  API key, secret and user_id in the space provided for these keys and run the python script (py-client.py)
-
+Note: You can also add custom model configurations along with these values
 It will take some time to authenticate the user, generate Transaction and initiate stream. You can start speaking when you see the following logs in the console
 
 ```
