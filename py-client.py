@@ -119,7 +119,7 @@ def get_token(apiKey, apiSecret, userId):
     print(token)
     return token
 
-def initiate_transaction(token):
+def initiate_transaction(token, model_configs):
     # importing the requests library
     
     # defining the api-endpoint 
@@ -137,7 +137,7 @@ def initiate_transaction(token):
     channelId = pastebin_url['channels'][0]['channelId']
 
 
-    sio.connect('https://streams.marsview.ai/', auth={'txnId': txnId, 'channelId': channelId, 'token':token})
+    sio.connect('https://streams.marsview.ai/', auth={'txnId': txnId, 'channelId': channelId, 'token':token, "modelConfigs":model_configs})
     sio.emit('startStream', '')
 def send_binary_data():
     
@@ -156,5 +156,12 @@ if __name__ == '__main__':
     api_secret = '<API_SECRET>'
     api_key = '<API_KEY>'
     user_id = '<USER_ID>'
+    model_configs  = {
+            'intent_analysis':{
+                'intents':
+                    ["intent-bxllq2f7hpkrvtyzi3-1627981197627",
+                            "intent-bxllq2f7hpkrvtzlkf-1627981226223"]
+                            }
+          }
     token = get_token(api_key, api_secret, user_id)
-    initiate_transaction(token)
+    initiate_transaction(token, model_configs)
