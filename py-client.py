@@ -16,18 +16,25 @@ def connect_error(data):
 def disconnect():
     print("I'm disconnected!")
 
-@sio.event
-def messages(sid, data):
-    print(data)
+# @sio.event
+# def messages(sid, data):
+#     print(data)
 
 @sio.event
 def output(data):
     data = json.loads(data)
     print(data)
-    # print('Trascript : ', data.get('sentence'))
-    # print('Sentiment : ', data.get('sentiment_stream'))
-    # print('Intent : ', data.get('intent_stream'))
-    # print('Tone : ', data.get('tone_stream'))
+    print('Trascript : ', data.get('sentence'))
+    print('Sentiment : ', data.get('sentiment'))
+    print('Intent : ', data.get('intent'))
+    print('intent Phrase', data.get('intentPhrase'))
+    print('Tone : ', data.get('tone'))
+    print('Emotion : ', data.get('emotion'))
+    print('Statement-Question-Command : ', data.get('sqc'))
+    print('Preset Statement Tag : ', data.get('presetStatementTag'))
+    print('Custom Statement Tag : ', data.get('customStatementTag'))
+
+    print("=============================================================================")
 
 @sio.event
 def valid_token(data):
@@ -127,18 +134,24 @@ def initiate_transaction(token, model_configs):
 
     
 
-    data = {'channels':1}
+    data = {
+        "channels":2,
+        "modelConfigs" : model_configs}
+
     headers = {'Authorization': f'Bearer {token}'}
     # sending post request and saving response as response object
-    r = requests.post(url = API_ENDPOINT, data = data, headers = headers)
+    r = requests.post(url = API_ENDPOINT, json = data, headers = headers)
     
     pastebin_url = json.loads(r.text)['data']
     txnId = pastebin_url['txnId']
     channelId = pastebin_url['channels'][0]['channelId']
 
+    print("txnId : ", txnId)
+    print("channelId : ", channelId)
 
-    sio.connect('https://streams.marsview.ai/', auth={'txnId': txnId, 'channelId': channelId, 'token':token, "modelConfigs":model_configs})
+    sio.connect('https://streams.marsview.ai', auth={'txnId': txnId, 'channelId': channelId, 'token':token})
     sio.emit('startStream', '')
+
 def send_binary_data():
     
     
@@ -156,12 +169,22 @@ if __name__ == '__main__':
     api_secret = '<API_SECRET>'
     api_key = '<API_KEY>'
     user_id = '<USER_ID>'
-    model_configs  = {
-            'intent_analysis':{
-                'intents':
-                    ["intent-bxllq2f7hpkrvtyzi3-1627981197627",
-                            "intent-bxllq2f7hpkrvtzlkf-1627981226223"]
-                            }
-          }
+
+    # config data for intents and statement tag models had to be created and the ids are given here, for which apis are available
+    model_configs = {
+        "intent_analysis":{
+            "intents":[
+                        # "intent-1c6q62hzkxj2farq-1640270029382",
+                        # "intent-1c6q62hzkxj4gm3m-1640273449953"
+                        ]},
+        "custom_statement_tag_analysis":{
+            "statement_tag_ids":[
+                # "statement-bxllq5imjkx68e6tb-1639493995007",
+                # "statement-bxllq1zsuzkvuj44go-1636609624728",
+                ],
+            "use_tag_level_threshold":True
+            },
+
+        }
     token = get_token(api_key, api_secret, user_id)
     initiate_transaction(token, model_configs)
